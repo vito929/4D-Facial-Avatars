@@ -255,6 +255,8 @@ def main():
     device = "cpu"
     if torch.cuda.is_available():
         device = "cuda"
+    print("device: ",device)
+    print ('Current cuda device: ', torch.cuda.current_device())
 
     encode_position_fn = get_embedding_function(
         num_encoding_functions=cfg.models.coarse.num_encoding_fn_xyz,
@@ -417,7 +419,7 @@ def main():
             #expression = render_expressions[0] ### TODO fixes expr
             #expression = torch.zeros_like(expression).to(device)
 
-            ablate = 'view_dir'
+            ablate = 'none'
 
             if ablate == 'expression':
                 pose = render_poses[100]
@@ -462,8 +464,8 @@ def main():
                 expressions = expression,
                 background_prior = background.view(-1,3) if (background is not None) else None,
                 #background_prior = torch.ones_like(background).view(-1,3),  # White background
-                latent_code = latent_code,
-                ray_directions_ablation = ray_directions_ablation
+                latent_code = latent_code
+                # ray_directions_ablation = ray_directions_ablation
             )
             rgb = rgb_fine if rgb_fine is not None else rgb_coarse
             normals = torch_normal_map(disp_fine, focal, weights, clean=True)

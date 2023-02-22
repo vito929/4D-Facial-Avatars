@@ -1,0 +1,8 @@
+nerface_dataset.zip
+*.tar
+**/logs/
+**/nerface_dataset/
+**/renders/
+**/.ipynb_checkpoints/
+*.pyc
+***/__pycache__/

@@ -81,7 +81,9 @@ def main():
         device = "cuda" #+ ":" + str(cfg.experiment.device)
     else:
         device = "cpu"
+    # device = "cuda"
 
+    print("device: ",device)
     encode_position_fn = get_embedding_function(
         num_encoding_functions=cfg.models.coarse.num_encoding_fn_xyz,
         include_input=cfg.models.coarse.include_input_xyz,
@@ -211,6 +213,7 @@ def main():
     # Load an existing checkpoint, if a path is specified.
     if os.path.exists(configargs.load_checkpoint):
         checkpoint = torch.load(configargs.load_checkpoint)
+        print("loaded checkpoint from: ",configargs.load_checkpoint)
         model_coarse.load_state_dict(checkpoint["model_coarse_state_dict"])
         if checkpoint["model_fine_state_dict"]:
             model_fine.load_state_dict(checkpoint["model_fine_state_dict"])
